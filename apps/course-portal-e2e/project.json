@@ -1,0 +1,28 @@
+{
+  "root": "apps/course-portal-e2e",
+  "sourceRoot": "apps/course-portal-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/course-portal-e2e/cypress.json",
+        "devServerTarget": "course-portal:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "course-portal:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/course-portal-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["course-portal"]
+}
