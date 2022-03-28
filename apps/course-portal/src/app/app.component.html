@@ -1,1 +1,27 @@
-<course-management-nx-welcome></course-management-nx-welcome>
+<div>
+  <nav class="navbar navbar-expand-lg navbar-light navbar-background">
+    <a class="navbar-brand half-marigin-left" routerLink="courses"
+      >Course Portal</a
+    >
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a
+          class="nav-item nav-link active"
+          routerLink="courses"
+          routerLinkActive="active"
+          >Home</a
+        >
+        <a
+          class="nav-item nav-link"
+          routerLink="create-course"
+          routerLinkActive="active"
+          >Create Course</a
+        >
+      </div>
+    </div>
+  </nav>
+
+  <div class="base-margin-top">
+    <router-outlet></router-outlet>
+  </div>
+</div>

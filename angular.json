@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "course-portal": "apps/course-portal",
-    "course-portal-e2e": "apps/course-portal-e2e"
+    "course-portal-e2e": "apps/course-portal-e2e",
+    "server": "apps/server"
   }
 }

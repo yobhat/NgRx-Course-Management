@@ -18,7 +18,7 @@
           "apps/course-portal/src/favicon.ico",
           "apps/course-portal/src/assets"
         ],
-        "styles": ["apps/course-portal/src/styles.scss"],
+        "styles": ["apps/course-portal/src/styles.scss", "node_modules/bootstrap/dist/css/bootstrap.min.css"],
         "scripts": []
       },
       "configurations": {
@@ -64,7 +64,10 @@
           "browserTarget": "course-portal:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/course-portal/proxy.conf.json"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

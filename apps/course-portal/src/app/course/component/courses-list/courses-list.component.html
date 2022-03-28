@@ -1,0 +1,84 @@
+<div
+  class="course-list-container"
+  *ngIf="areCoursesLoaded$ | async; else loaderTemplate"
+>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col" class="col-width">Operations</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of courses$ | async">
+        <td>{{ course?.name }}</td>
+        <td>{{ course?.description }}</td>
+        <td>
+          <button
+            (click)="showUpdateCosurseModal(course)"
+            class="btn btn-primary qtr-margin"
+          >
+            Update
+          </button>
+          <button (click)="deleteCourse(course.id)" class="btn btn-danger">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div [ngStyle]="{ display: displayStyle }" id="editCourseModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-title">
+      <h4>Update a Course</h4>
+    </div>
+    <form (ngSubmit)="updateCourse(updateForm)" #updateForm="ngForm">
+      <div class="form-group form-field">
+        <label for="name">Course Name:</label>
+        <input
+          type="text"
+          id="CourseName"
+          name="name"
+          class="form-control"
+          required
+          [(ngModel)]="courseToBeUpdated.name"
+        />
+      </div>
+      <div class="form-group form-field">
+        <label for="description">Description:</label>
+        <textarea
+          rows="4"
+          cols="50"
+          id="description"
+          name="description"
+          class="form-control"
+          [(ngModel)]="courseToBeUpdated.description"
+          required
+        ></textarea>
+      </div>
+      <div class="update-button">
+        <button
+          type="button"
+          class="btn btn-secondary qtr-margin"
+          (click)="closeEditCourseModal()"
+        >
+          Close
+        </button>
+        <button
+          [disabled]="updateForm.invalid"
+          class="btn btn-primary qtr-margin"
+          type="submit"
+        >
+          Update
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #loaderTemplate>
+  <div class="load-course">Loading Courses...</div>
+</ng-template>
