@@ -8,8 +8,6 @@ export function deleteCourse(req: Request, res: Response) {
 
     const id = req.params["id"];
 
-    const course = COURSES[id];
-
     delete COURSES[id];
 
     setTimeout(() => {

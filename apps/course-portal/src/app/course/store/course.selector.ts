@@ -1,5 +1,5 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { CourseState } from "./course.reducers";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { CourseState } from './course.reducers';
 
 const getCourseFeatureState = createFeatureSelector<CourseState>('courses');
 
@@ -8,12 +8,10 @@ export const getAllCourses = createSelector(
   (state: CourseState) => state.courses
 );
 
-export const areCoursesLoaded = createSelector(
+export const coursesLoadState = createSelector(
   getCourseFeatureState,
-  state => state.coursesLoaded
+  (state) => state.callState
 );
 
-export const getCourseById = (courseId: number) => createSelector(
-  getCourseFeatureState,
-  state => state.courses[courseId]
-);
+export const getCourseById = (courseId: number) =>
+  createSelector(getCourseFeatureState, (state) => state.courses[courseId]);

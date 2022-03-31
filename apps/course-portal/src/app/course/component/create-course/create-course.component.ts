@@ -8,31 +8,27 @@ import { NgForm } from '@angular/forms';
 @Component({
   selector: 'course-management-create-course',
   templateUrl: './create-course.component.html',
-  styleUrls: ['./create-course.component.scss']
-
+  styleUrls: ['./create-course.component.scss'],
 })
 export class CreateCourseComponent {
-
-  constructor(
-    private store: Store,
-    private router: Router
-  ) { }
+  constructor(private store: Store, private router: Router) {}
 
   onSubmit(courseFormData: NgForm) {
-
     if (courseFormData.invalid) {
       return;
     }
 
-    const courseId = Math.floor(Math.random() * 100000)
+    const courseId = Math.floor(Math.random() * 100000);
     const course: Course = {
-      id: courseId, name: courseFormData.value.name,
-      description: courseFormData.value.description
+      id: `CU${courseId.toString()}`,
+      name: courseFormData.value.name,
+      description: courseFormData.value.description,
     };
-    this.store.dispatch(courseActionTypes.createCourse({course}));
+    this.store.dispatch(courseActionTypes.createCourseDone());
+    this.store.dispatch(courseActionTypes.createCourse({ course }));
   }
 
-  navigateToCourseList(){
-    this.router.navigateByUrl('/courses')
+  navigateToCourseList() {
+    this.router.navigateByUrl('/courses');
   }
 }

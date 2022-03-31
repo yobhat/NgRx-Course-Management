@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'course-management-root',
@@ -9,9 +8,4 @@ import { Store } from '@ngrx/store';
 export class AppComponent {
   title = 'Course-Portal';
 
-  constructor(private readonly store: Store) { }
-
-  clearCourses() {
-    // this.store.dispatch(courseActionTypes.clearCourses())
-  }
 }

@@ -1,34 +1,43 @@
-<div
-  class="course-list-container"
-  *ngIf="areCoursesLoaded$ | async; else loaderTemplate"
->
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Description</th>
-        <th scope="col" class="col-width">Operations</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let course of courses$ | async">
-        <td>{{ course?.name }}</td>
-        <td>{{ course?.description }}</td>
-        <td>
-          <button
-            (click)="showUpdateCosurseModal(course)"
-            class="btn btn-primary qtr-margin"
-          >
-            Update
-          </button>
-          <button (click)="deleteCourse(course.id)" class="btn btn-danger">
-            Delete
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<ng-container [ngSwitch]="coursesLoadState$ | async">
+  <ng-container *ngSwitchCase="courseListViews.LOADED">
+    <div class="base-margin">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col" class="col-width">Operations</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let course of courses$ | async">
+            <td>{{ course?.name }}</td>
+            <td>{{ course?.description }}</td>
+            <td>
+              <button
+                (click)="showUpdateCosurseModal(course)"
+                class="btn btn-primary qtr-margin"
+              >
+                Update
+              </button>
+              <button (click)="deleteCourse(course.id)" class="btn btn-danger">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="courseListViews.LOADING">
+    <div class="load-course">Loading Courses...</div>
+  </ng-container>
+  <ng-container *ngSwitchCase="courseListViews.ERROR">
+    <div class="alert alert-danger base-margin" role="alert">
+      An unexpected error occured!
+    </div>
+  </ng-container>
+</ng-container>
 
 <div [ngStyle]="{ display: displayStyle }" id="editCourseModal" class="modal">
   <div class="modal-content">
@@ -78,7 +87,3 @@
     </form>
   </div>
 </div>
-
-<ng-template #loaderTemplate>
-  <div class="load-course">Loading Courses...</div>
-</ng-template>

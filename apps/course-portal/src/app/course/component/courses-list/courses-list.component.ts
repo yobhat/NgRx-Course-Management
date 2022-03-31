@@ -4,63 +4,69 @@ import { Observable } from 'rxjs';
 import { Course } from '../../model/course.model';
 import { Component, OnInit } from '@angular/core';
 import { Update } from '@ngrx/entity';
-import { areCoursesLoaded, getAllCourses } from '../../store/course-entity.selector';
-// import { areCoursesLoaded, getAllCourses } from '../../store/course.selector';
+// import {
+//   coursesLoadState,
+//   getAllCourses,
+// } from '../../store/entity/course-entity.selector';
+import { coursesLoadState, getAllCourses } from '../../store/course.selector';
+import { ViewState } from '../../model/call-state';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'course-management-courses-list',
   templateUrl: './courses-list.component.html',
-  styleUrls: ['./courses-list.component.scss']
+  styleUrls: ['./courses-list.component.scss'],
 })
 export class CoursesListComponent implements OnInit {
-
   courses$: Observable<Course[]> | undefined;
   courseToBeUpdated: Course = {
-    id: 0,
+    id: '',
     name: '',
-    description: ''
+    description: '',
   };
-  areCoursesLoaded$ = this.store.pipe(select(areCoursesLoaded));
+  coursesLoadState$ = this.store.pipe(select(coursesLoadState));
   displayStyle = 'none';
+  courseListViews = ViewState;
 
-  constructor(private readonly store: Store) { }
+  constructor(private readonly store: Store) {}
 
   ngOnInit() {
-    this.store.dispatch(courseActionTypes.loadCourses())
+    this.store.dispatch(courseActionTypes.loadCourses());
     this.courses$ = this.store.pipe(select(getAllCourses));
   }
 
-  deleteCourse(courseId: number) {
-    this.store.dispatch(courseActionTypes.deleteCourse({courseId}));
+  deleteCourse(courseId: string) {
+    this.store.dispatch(courseActionTypes.deleteCourse({ courseId }));
   }
 
   showUpdateCosurseModal(course: Course) {
-    this.courseToBeUpdated = {...course};
+    this.courseToBeUpdated = { ...course };
     this.displayStyle = 'block';
+    this.store.dispatch(courseActionTypes.openEditCourse());
   }
 
   closeEditCourseModal() {
     this.displayStyle = 'none';
   }
 
-  updateCourse(courseData: any) {
-    // this.store.dispatch(courseActionTypes.editCourse({course: this.courseToBeUpdated}))
-
-    const update: Update<Course> = {
+  updateCourse(courseData: NgForm) {
+    const course: Course = {
       id: this.courseToBeUpdated.id,
-      changes: {
-        ...this.courseToBeUpdated,
-        ...courseData.value
-      }
+      name: courseData.value.name,
+      description: courseData.value.description,
     };
+    this.store.dispatch(courseActionTypes.editCourse({ course: course }));
 
-    this.store.dispatch(courseActionTypes.updateCourse({update}));
+    // const update: Update<Course> = {
+    //   id: this.courseToBeUpdated.id,
+    //   changes: {
+    //     ...this.courseToBeUpdated,
+    //     ...courseData.value,
+    //   },
+    // };
 
-    this.courseToBeUpdated = {
-      id: NaN,
-      name: '',
-      description: ''
-    };
+    // this.store.dispatch(courseActionTypes.updateCourse({ update }));
+
     this.displayStyle = 'none';
   }
 }

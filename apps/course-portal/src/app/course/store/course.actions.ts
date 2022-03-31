@@ -2,41 +2,56 @@ import { Course } from './../model/course.model';
 import { createAction, props } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 
+const loadCourses = createAction('[Courses List API] Load Courses');
 
-export const loadCourses = createAction(
-  '[Courses List API] Load Courses',
-);
-
-export const coursesLoaded = createAction(
+const coursesLoaded = createAction(
   '[Courses Effect] Courses Loaded Successfully',
-  props<{courses: Course[]}>()
+  props<{ courses: Course[] }>()
 );
 
-export const createCourse = createAction(
+const coursesLoadFailure = createAction(
+  '[Courses Effect] Courses Load Failed',
+  props<{ error: any }>()
+);
+
+const createCourseDone = createAction(
+  '[Courses List API] createCourseDone Courses'
+);
+
+const createCourse = createAction(
   '[Create Course Operation] Create Course',
-  props<{course: Course}>()
+  props<{ course: Course }>()
 );
 
-export const deleteCourse = createAction(
+const deleteCourse = createAction(
   '[Courses List Operations] Delete Course',
-  props<{courseId: number}>()
+  props<{ courseId: string }>()
 );
 
-export const updateCourse = createAction(
-  '[Courses List Operations] Update Course',
-  props<{update: Update<Course>}>()
-);
-export const editCourse = createAction(
-  '[Courses List Operations] Update Course',
-  props<{course: Course}>()
-);
-export const editCourseSuccess = createAction(
-  '[Courses List Operations] Update Course',
-  props<{course: Course}>()
+const openEditCourse = createAction(
+  '[Courses List Operations] Edit Course Modal Opened'
 );
 
-export const clearCourses = createAction(
-  '[Courses Clear UI] Clear Courses',
+const editCourse = createAction(
+  '[Courses List Operations] Edit Course',
+  props<{ course: Course }>()
+);
+
+const editCourseSuccess = createAction(
+  '[Courses List Operations] Course Edited Successfully',
+  props<{ course: Course }>()
+);
+
+//Update action is for Entity method updateOne() which makes use of Update<T>
+const updateCourse = createAction(
+  '[Courses List Operations] Update Course',
+  props<{ update: Update<Course> }>()
+);
+
+//Update action is for Entity method updateOne() which makes use of Update<T>
+const updateCourseSuccess = createAction(
+  '[Courses List Operations] Course Updated Successfully',
+  props<{ update: Update<Course> }>()
 );
 
 export const courseActionTypes = {
@@ -45,7 +60,10 @@ export const courseActionTypes = {
   createCourse,
   deleteCourse,
   updateCourse,
-  clearCourses,
+  openEditCourse,
+  createCourseDone,
   editCourse,
-  editCourseSuccess
+  editCourseSuccess,
+  updateCourseSuccess,
+  coursesLoadFailure,
 };

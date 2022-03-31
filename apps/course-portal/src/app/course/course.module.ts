@@ -7,23 +7,23 @@ import { NgModule } from '@angular/core';
 import { CoursesListComponent } from './component/courses-list/courses-list.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-// import { courseReducer } from './store/course.reducers';
-import { courseReducer } from './store/course-entity.reducers';
+import {
+  courseReducer,
+  COURSES_REDUCER_FEATURE_KEY,
+} from './store/course.reducers';
+// import { courseReducer, COURSES_REDUCER_FEATURE_KEY } from './store/entity/course-entity.reducers';
 import { CreateCourseComponent } from './component/create-course/create-course.component';
 
 @NgModule({
-  declarations: [
-    CoursesListComponent,
-    CreateCourseComponent
-  ],
+  declarations: [CoursesListComponent, CreateCourseComponent],
   imports: [
     CommonModule,
     FormsModule,
-    StoreModule.forFeature('courses', courseReducer),
-    EffectsModule.forFeature([CourseEffects])
+    StoreModule.forFeature(COURSES_REDUCER_FEATURE_KEY, courseReducer),
+    EffectsModule.forFeature([CourseEffects]),
   ],
   providers: [CourseService],
   bootstrap: [],
-  exports: [CoursesListComponent, CreateCourseComponent]
+  exports: [CoursesListComponent, CreateCourseComponent],
 })
-export class CourseModule { }
+export class CourseModule {}
