@@ -40,9 +40,9 @@ export class CoursesListComponent implements OnInit {
   }
 
   showUpdateCosurseModal(course: Course) {
+    this.store.dispatch(courseActionTypes.openEditCourse());
     this.courseToBeUpdated = { ...course };
     this.displayStyle = 'block';
-    this.store.dispatch(courseActionTypes.openEditCourse());
   }
 
   closeEditCourseModal() {

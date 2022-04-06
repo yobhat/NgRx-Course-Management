@@ -14,10 +14,6 @@ const coursesLoadFailure = createAction(
   props<{ error: any }>()
 );
 
-const createCourseDone = createAction(
-  '[Courses List API] createCourseDone Courses'
-);
-
 const createCourse = createAction(
   '[Create Course Operation] Create Course',
   props<{ course: Course }>()
@@ -61,7 +57,6 @@ export const courseActionTypes = {
   deleteCourse,
   updateCourse,
   openEditCourse,
-  createCourseDone,
   editCourse,
   editCourseSuccess,
   updateCourseSuccess,

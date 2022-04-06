@@ -4,9 +4,9 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { catchError, concatMap, map, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { of } from 'rxjs/internal/observable/of';
 import { Course } from '../model/course.model';
 import { Update } from '@ngrx/entity';
+import { of } from 'rxjs';
 
 @Injectable()
 export class CourseEffects {

@@ -24,7 +24,6 @@ export class CreateCourseComponent {
       name: courseFormData.value.name,
       description: courseFormData.value.description,
     };
-    this.store.dispatch(courseActionTypes.createCourseDone());
     this.store.dispatch(courseActionTypes.createCourse({ course }));
   }
 

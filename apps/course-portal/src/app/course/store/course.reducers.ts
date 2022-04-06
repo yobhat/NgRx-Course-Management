@@ -14,15 +14,11 @@ export const initialState: CourseState = {
   callState: ViewState.INIT,
 };
 
-// on() function works like a switch statement for actions.
+//Reducer function to trigger the state changes
 export const courseReducer = createReducer(
   initialState,
 
-  on(courseActionTypes.loadCourses, (state) => ({
-    ...state,
-    callState: ViewState.LOADING,
-  })),
-
+  // on() functions handle the actions, and work like a switch statement for dispatched actions
   on(courseActionTypes.coursesLoaded, (state, action) => {
     return {
       ...state,
@@ -30,6 +26,11 @@ export const courseReducer = createReducer(
       callState: ViewState.LOADED,
     };
   }),
+
+  on(courseActionTypes.loadCourses, (state) => ({
+    ...state,
+    callState: ViewState.LOADING,
+  })),
 
   on(courseActionTypes.coursesLoadFailure, (state) => ({
     ...state,
